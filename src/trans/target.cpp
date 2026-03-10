@@ -422,6 +422,7 @@ namespace
     {
         // Options for all the fully-GNU environments
         #define BACKEND_C_OPTS_GNU  {"-ffunction-sections", "-pthread"}, {"-Wl,--start-group"}, {"-Wl,--end-group", "-Wl,--gc-sections", "-l", "atomic"}
+        #define BACKEND_C_OPTS_SOLARIS {"-ffunction-sections", "-pthreads"}, {}, {"-lsocket", "-lnsl", "-lrt", "-lm"}
         // If there's a '/' or a '\' in the filename, open it as a path, otherwise assume it's a triple.
         if( target_name.find('/') != ::std::string::npos || target_name.find('\\') != ::std::string::npos )
         {
@@ -658,6 +659,13 @@ namespace
                 "unix", "haiku", "gnu", {CodegenMode::Gnu11, false, "x86_64-unknown-haiku", {}, {}},
                 ARCH_X86_64
                 };
+        }
+        else if(target_name == "x86_64-unknown-solaris" || target_name == "x86_64-pc-solaris")
+        {
+            return TargetSpec {
+                "unix", "solaris", "sun", {CodegenMode::Gnu11, true, "x86_64-pc-solaris", BACKEND_C_OPTS_SOLARIS},
+                ARCH_X86_64
+            };
         }
         else
         {
