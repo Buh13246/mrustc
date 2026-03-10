@@ -134,6 +134,13 @@
 # else
 #  define DEFAULT_TARGET_NAME "x86_64-apple-darwin"
 #endif
+// - Solaris / SunOS
+#elif defined(__sun) || defined(__SVR4)
+# if defined(__amd64) || defined(__x86_64__)
+#  define DEFAULT_TARGET_NAME "x86_64-pc-solaris"
+# else
+#  define DEFAULT_TARGET_NAME "i386-pc-solaris"
+# endif
 // - Haiku
 #elif defined(__HAIKU__)
 # if defined(__x86_64__)
