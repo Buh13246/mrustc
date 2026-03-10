@@ -1123,6 +1123,10 @@ namespace {
             return rv;
         }
 
+
+        if (path_abs.crate == "#builtins") {
+            return {}; // Ignore the missing builtins crate during early bootstrap
+        }
         ASSERT_BUG(span, crate.m_extern_crates.count(path_abs.crate.c_str()), "Crate '" << path_abs.crate << "' not loaded");
         return Resolve_Use_GetBinding__ext(span, crate, path,  crate.m_extern_crates.at( path_abs.crate.c_str() ), 0);
     }
